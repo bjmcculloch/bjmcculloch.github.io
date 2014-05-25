@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Organometallic Odyssey</title><link href="http://bjmcculloch.github.io/" rel="alternate"></link><link href="http://bjmcculloch.github.io/feeds/crystallography.atom.xml" rel="self"></link><id>http://bjmcculloch.github.io/</id><updated>2014-05-24T09:33:00-05:00</updated><entry><title>Powder XRD Packages</title><link href="http://bjmcculloch.github.io/powder-xrd-packages.html" rel="alternate"></link><updated>2014-05-24T09:33:00-05:00</updated><author><name>Billy McCulloch</name></author><id>tag:bjmcculloch.github.io,2014-05-24:powder-xrd-packages.html</id><summary type="html">&lt;p&gt;I'm just exploring options, and I'm no pro. Here's a short list of what I've
+found, and my notes (if any) on them.&lt;/p&gt;
+&lt;h3 id="powdll"&gt;PowDLL&lt;/h3&gt;
+&lt;h3 id="fullprof-winplotr"&gt;FullProf / WinPLOTR&lt;/h3&gt;
+&lt;h3 id="openbabel"&gt;OpenBabel&lt;/h3&gt;
+&lt;h3 id="fox-free-objects-for-crystallography"&gt;Fox (Free Objects for Crystallography)&lt;/h3&gt;
+&lt;h3 id="general-resources"&gt;General Resources&lt;/h3&gt;
+&lt;p&gt;&lt;a href="http://sdpd.univ-lemans.fr/iniref/tutorial/indexa.html"&gt;Strategies in Structure Determination from Powder Data&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://sdpd.univ-lemans.fr/course/"&gt;SDPD Internet Course&lt;/a&gt;&lt;/p&gt;</summary><category term="crystallography"></category></entry><entry><title>Making Videos From Face Indexing Images</title><link href="http://bjmcculloch.github.io/making-videos-from-face-indexing-images.html" rel="alternate"></link><updated>2013-03-24T09:26:00-05:00</updated><author><name>Billy McCulloch</name></author><id>tag:bjmcculloch.github.io,2013-03-24:making-videos-from-face-indexing-images.html</id><summary type="html">&lt;p&gt;This is pretty straightforward. The &lt;code&gt;.vzs&lt;/code&gt; file you capture when taking the video
+for face indexing is just a zipfile. So, rename the file, unzip it, and use
+&lt;a href="http://electron.mit.edu/~gsteele/ffmpeg/"&gt;ffmpeg/mencoder to make a video&lt;/a&gt;.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mkdir video ; &lt;span class="nb"&gt;cd &lt;/span&gt;video
+&lt;span class="nv"&gt;$ &lt;/span&gt;unzip ../crystal.vzs
+&lt;span class="nv"&gt;$ &lt;/span&gt;mencoder &lt;span class="s2"&gt;&amp;quot;mf://*.jpg&amp;quot;&lt;/span&gt; -mf &lt;span class="nv"&gt;fps&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;30 -o crystal.avi -ovc copy
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;This will open up fine in VLC, but if you need it to work in, say, MS Office,
+then you should use settings along these lines:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mencoder &lt;span class="s2"&gt;&amp;quot;mf://*.jpg&amp;quot;&lt;/span&gt; -mf &lt;span class="nv"&gt;fps&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;30 -o crystal.avi &lt;span class="se"&gt;\&lt;/span&gt;
+  -ovc lavc -lavcopts &lt;span class="nv"&gt;vcodec&lt;/span&gt;&lt;span class="o"&gt;=&lt;/span&gt;msmpeg4v2:vbitrate&lt;span class="o"&gt;=&lt;/span&gt;8192
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;ffmpeg is also a good option, but MS Office doesn't support the output.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;ffmpeg -r 30 -b 8192k -i %03d.jpg crystal.avi
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;Also, the page linked above says you have to convert to JPEGs for mencoder. This
+is no longer true. Also, if you do need to do the conversion, the listed command
+is far more complex than it needs to be. Use this instead:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="nv"&gt;$ &lt;/span&gt;mogrify -format jpg *.png
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="crystallography"></category><category term="video"></category></entry><entry><title>Making POV-Ray Orbit A Crystal Structure</title><link href="http://bjmcculloch.github.io/making-pov-ray-orbit-a-crystal-structure.html" rel="alternate"></link><updated>2012-05-24T09:30:00-05:00</updated><author><name>Billy McCulloch</name></author><id>tag:bjmcculloch.github.io,2012-05-24:making-pov-ray-orbit-a-crystal-structure.html</id><summary type="html">&lt;p&gt;I like to use Mercury to generate POV-Ray files, but this should work with any POV-Ray scene.&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="cp"&gt;#include &amp;quot;math.inc&amp;quot;&lt;/span&gt;
+
+&lt;span class="cp"&gt;#macro ccdc_orthographic_camera( camera_position )&lt;/span&gt;
+    &lt;span class="n"&gt;camera&lt;/span&gt; &lt;span class="p"&gt;{&lt;/span&gt;
+        &lt;span class="n"&gt;orthographic&lt;/span&gt;
+        &lt;span class="c1"&gt;// In orthographic view, making &amp;#39;angle&amp;#39; smaller makes the structure bigger,&lt;/span&gt;
+        &lt;span class="c1"&gt;// and vice versa:&lt;/span&gt;
+        &lt;span class="n"&gt;angle&lt;/span&gt; &lt;span class="mf"&gt;0.075&lt;/span&gt;
+        &lt;span class="n"&gt;location&lt;/span&gt; &lt;span class="n"&gt;camera_position&lt;/span&gt;
+    &lt;span class="n"&gt;sky&lt;/span&gt;   &lt;span class="o"&gt;&amp;lt;-&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;10000&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;100&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="n"&gt;up&lt;/span&gt;    &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+        &lt;span class="n"&gt;right&lt;/span&gt;  &lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="n"&gt;x&lt;/span&gt; &lt;span class="o"&gt;*&lt;/span&gt; &lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;image_width&lt;/span&gt;&lt;span class="o"&gt;/&lt;/span&gt;&lt;span class="n"&gt;image_height&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+        &lt;span class="n"&gt;look_at&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="o"&gt;&amp;gt;&lt;/span&gt;
+&lt;span class="c1"&gt;//        rotate_view_for_animation()&lt;/span&gt;
+    &lt;span class="p"&gt;}&lt;/span&gt;
+&lt;span class="cp"&gt;#end&lt;/span&gt;
+
+&lt;span class="cp"&gt;#declare r = 23000;&lt;/span&gt;
+
+&lt;span class="n"&gt;ccdc_orthographic_camera&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt; &lt;span class="o"&gt;&amp;lt;&lt;/span&gt;
+&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;clip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;cos&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;clock&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="n"&gt;clip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sin&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;clock&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;
+&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;clip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sin&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;clock&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;),&lt;/span&gt;
+&lt;span class="n"&gt;r&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;clip&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="n"&gt;sin&lt;/span&gt;&lt;span class="p"&gt;((&lt;/span&gt;&lt;span class="o"&gt;-&lt;/span&gt;&lt;span class="mf"&gt;0.5&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;&lt;span class="o"&gt;+&lt;/span&gt;&lt;span class="p"&gt;(&lt;/span&gt;&lt;span class="mf"&gt;1.5&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;pi&lt;/span&gt;&lt;span class="o"&gt;*&lt;/span&gt;&lt;span class="n"&gt;clock&lt;/span&gt;&lt;span class="p"&gt;)),&lt;/span&gt;&lt;span class="mi"&gt;0&lt;/span&gt;&lt;span class="p"&gt;,&lt;/span&gt;&lt;span class="mi"&gt;1&lt;/span&gt;&lt;span class="p"&gt;)&lt;/span&gt;
+&lt;span class="o"&gt;&amp;gt;&lt;/span&gt; &lt;span class="p"&gt;)&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;</summary><category term="crystallography"></category></entry><entry><title>3D Models in PDFs</title><link href="http://bjmcculloch.github.io/3d-models-in-pdfs.html" rel="alternate"></link><updated>2001-12-01T09:17:00-06:00</updated><author><name>Billy McCulloch</name></author><id>tag:bjmcculloch.github.io,2001-12-01:3d-models-in-pdfs.html</id><summary type="html">&lt;p&gt;I've had this idea for quite some time now: I would like to be able to
+incorporate interactive 3D figures of crystallographic models in my PDFs. It
+started when I was reading about &lt;a href="http://asymptote.sourceforge.net/"&gt;Asymptote&lt;/a&gt;, a vector graphics package with the
+ability to embed 3D models in PDFs. I set out to write a program/script to turn
+a CIF into Asymptote code. Fortunately, I've since run across some &lt;a href="http://www.citeulike.org/user/bjmcculloch/tag/3d"&gt;other people
+with similar ambitions&lt;/a&gt;, so I'm using their experience as guidance, and I will be
+documenting my ideas here.&lt;/p&gt;
+&lt;h1 id="file-formats"&gt;File Formats&lt;/h1&gt;
+&lt;h2 id="cif"&gt;CIF&lt;/h2&gt;
+&lt;p&gt;The standard format for small-molecule crystallographic models, this is the
+universal starting point&lt;/p&gt;
+&lt;h2 id="mmcif"&gt;mmCIF&lt;/h2&gt;
+&lt;p&gt;A standard format for macromolecular crystallographic models. This is a
+reasonable intermediate, because there appear to be a swath of tools available
+to convert this into other useful formats.&lt;/p&gt;
+&lt;h2 id="pdb"&gt;PDB&lt;/h2&gt;
+&lt;p&gt;Another, very common, format for macromolecular models. Can be as simple as a
+list of XYZ coordinates, or can include more details, such as unit cell
+dimensions and thermal displacement parameters. Very human-readable, simple text
+based system.&lt;/p&gt;
+&lt;h2 id="vrml-x3d"&gt;VRML / X3D&lt;/h2&gt;
+&lt;p&gt;The original web standard for 3D content. Has fallen somewhat by the wayside on
+the web, but has become a catch-all file format for a 3D programs.&lt;/p&gt;
+&lt;p&gt;The proposed replacement for VRML, X3D is XML-based.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.web3d.org/x3d/"&gt;X3D/VRML Resources&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id="u3d"&gt;U3D&lt;/h2&gt;
+&lt;p&gt;U3D is also XML-based, and has been around longer. I don't know why it's not the
+"new VRML" format. This is the format Adobe PDF readers expect to see for
+embedded 3D objects. (&lt;a href="http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-363%204th%20Edition.pdf"&gt;U3D File Format
+Specification&lt;/a&gt;)&lt;/p&gt;
+&lt;h2 id="pdf"&gt;PDF&lt;/h2&gt;
+&lt;p&gt;Of course, this is the standard document exchange format. This is the target
+system which we would like to embed out graphics in.&lt;/p&gt;
+&lt;h1 id="programs"&gt;Programs&lt;/h1&gt;
+&lt;h2 id="pymol"&gt;&lt;a href="http://www.pymol.org/"&gt;PyMOL&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="jmol"&gt;jMOL&lt;/h2&gt;
+&lt;h2 id="mercury"&gt;Mercury&lt;/h2&gt;
+&lt;p&gt;Mercury is capable of converting CIF files to PDB files, while retaining the
+data pertinent to an accurate 3D model (a, b, c, α, β, γ, Uij, etc…)!&lt;/p&gt;
+&lt;h2 id="xj3d"&gt;&lt;a href="http://www.xj3d.org/"&gt;Xj3D&lt;/a&gt;&lt;/h2&gt;
+&lt;h2 id="asymptote"&gt;Asymptote&lt;/h2&gt;
+&lt;h2 id="latex"&gt;LaTeX&lt;/h2&gt;
+&lt;h2 id="adobe-reader"&gt;Adobe Reader&lt;/h2&gt;
+&lt;h2 id="sf-convert"&gt;sf-convert&lt;/h2&gt;
+&lt;h2 id="maxit"&gt;maxit&lt;/h2&gt;
+&lt;h2 id="meshlab"&gt;&lt;a href="http://meshlab.sourceforge.net/"&gt;MeshLab&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;Meshlab can convert VRML or X3D to U3D, which is what Adobe uses for PDFs.&lt;/p&gt;
+&lt;h2 id="drawxtl"&gt;DRAWxtl&lt;/h2&gt;
+&lt;p&gt;DRAWxtl can import a CIF and export a VRML file with all the thermal ellipsoids
+intact! It's a bit clunky to use, though.&lt;/p&gt;
+&lt;h2 id="diamond"&gt;Diamond&lt;/h2&gt;
+&lt;p&gt;Diamond can also import CIFs and export VRML with all thermal ellipsoids intact!
+It's commercial software, but available in a demo form that does not restrict
+your ability to export VRML. Probably the best
+&lt;a href="http://en.wikipedia.org/wiki/Commercial_off-the-shelf"&gt;COTS&lt;/a&gt; solution.&lt;/p&gt;
+&lt;h2 id="x3d-edit"&gt;X3D-Edit&lt;/h2&gt;
+&lt;p&gt;X3D-Edit is usable as a VRML/X3D conversion tool, as well as a validator. It's a
+program written by the man who literally wrote the book on X3D.&lt;/p&gt;
+&lt;h1 id="workflows"&gt;Workflows&lt;/h1&gt;
+&lt;h2 id="pymol-meshlab-movie15"&gt;PyMOL → MeshLab → movie15&lt;/h2&gt;
+&lt;p&gt;This doesn't work because PyMOL, for whatever reason, will not save the
+ellipsoids in the exported VRML document (or in POV-Ray documents, either).
+Also, MeshLab doesn't like the VRML format that PyMOL makes, anyway. Xj3D, on
+the other hand, has no issues with opening/converting these files. However, even
+if you use Xj3D to convert from VRML to X3D, MeshLab will still complain.&lt;/p&gt;
+&lt;p&gt;Convert from CIF to VRML
+Open the CIF in PyMOL
+show ellipsoids
+save filename.wrl
+Convert from VRML to U3D
+Open the VRML 2 (.wrl) document in MeshLab
+File → Save As… → U3D
+Embed the U3D document using the
+&lt;a href="http://www.ctan.org/tex-archive/macros/latex/contrib/movie15"&gt;movie15&lt;/a&gt;  package (&lt;a href="http://pages.uoregon.edu/noeckel/PDFmovie.html"&gt;concise instructions&lt;/a&gt;)&lt;/p&gt;
+&lt;h2 id="vtk-meshlab-movie15"&gt;VTK → MeshLab → movie15&lt;/h2&gt;
+&lt;p&gt;Nearly identical to the above, but find an app that uses
+&lt;a href="http://www.vtk.org/"&gt;VTK&lt;/a&gt; to display a CIF.&lt;/p&gt;
+&lt;h2 id="mercury-pov-ray-custom-script"&gt;Mercury → POV-Ray → Custom Script&lt;/h2&gt;
+&lt;p&gt;This was one of my original ideas: use Mercury's ability to export POV-Ray
+scenes to generate an input file that can be readily translated into Asymptote
+code. Right now, this isn't looking so bad…&lt;/p&gt;
+&lt;h2 id="cif-pdb-vrml-u3d"&gt;CIF → PDB → VRML → U3D&lt;/h2&gt;
+&lt;p&gt;Use Mercury to convert from CIF to PDB. Make a (Python?) script to turn that
+into an VRML model. Then MeshLab can convert the VRML to U3D. I'm guessing that
+VRML will likely be easier to implement, but X3D or even U3D could probably be
+implemented as well. This appears to be the route of choice.&lt;/p&gt;</summary><category term="3d"></category><category term="pdf"></category><category term="embed"></category><category term="cif"></category><category term="crystallography"></category></entry></feed>

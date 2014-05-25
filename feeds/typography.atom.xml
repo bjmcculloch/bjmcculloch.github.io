@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Organometallic Odyssey</title><link href="http://bjmcculloch.github.io/" rel="alternate"></link><link href="http://bjmcculloch.github.io/feeds/typography.atom.xml" rel="self"></link><id>http://bjmcculloch.github.io/</id><updated>2011-05-31T08:45:00-05:00</updated><entry><title>Unicode Input</title><link href="http://bjmcculloch.github.io/unicode-input.html" rel="alternate"></link><updated>2011-05-31T08:45:00-05:00</updated><author><name>Billy McCulloch</name></author><id>tag:bjmcculloch.github.io,2011-05-31:unicode-input.html</id><summary type="html">&lt;p&gt;Note: I posted this elsewhere on the 'net some time ago, but I'm putting it here
+to make it easier for me to find…&lt;/p&gt;
+&lt;p&gt;So, I am currently running Ubuntu 10.10 (just installed last night), and have
+the ability to both use unicode entry with the Ctrl+Shift+U sequence, as well as
+custom compose keys. This is something I discovered some time ago, and only
+recently revisited due to switching from Debian to Ubuntu. I don’t remember why
+this works anymore, but anyhow…
+1) Install the uim-gtk2.0 package (and uim-qt, if you want).
+2) That’s basically it. ツ You can then set your compose keys and whatnot in the
+System→Preferences→Keyboard menu.&lt;/p&gt;
+&lt;p&gt;There’s also another way to setup your .XCompose file; you can source the global
+file, then add your own definitions below that, so you have a more compact
+compose file (though it becomes subject to upstream’s modifications, which may
+or may not be something you want). Anyway, mine looks something like this:&lt;/p&gt;
+&lt;div class="highlight"&gt;&lt;pre&gt;&lt;span class="c"&gt;# Load the defaults first, so that you can overwrite sequences you don’t like&lt;/span&gt;
+include &lt;span class="s2"&gt;&amp;quot;/usr/share/X11/locale/en_US.UTF-8/Compose&amp;quot;&lt;/span&gt;
+
+&lt;span class="c"&gt;# Custom additions: Typography&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;period&amp;gt; &amp;lt;period&amp;gt; &amp;lt;period&amp;gt;  : &lt;span class="s2"&gt;&amp;quot;…&amp;quot;&lt;/span&gt; U2026       &lt;span class="c"&gt;# HORIZONTAL ELLIPSIS&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;minus&amp;gt; &amp;lt;less&amp;gt;              : &lt;span class="s2"&gt;&amp;quot;←&amp;quot;&lt;/span&gt; leftarrow   &lt;span class="c"&gt;# LEFTWARDS ARROW&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;bar&amp;gt; &amp;lt;asciicircum&amp;gt;         : &lt;span class="s2"&gt;&amp;quot;↑&amp;quot;&lt;/span&gt; uparrow     &lt;span class="c"&gt;# UPWARDS ARROW&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;minus&amp;gt; &amp;lt;greater&amp;gt;           : &lt;span class="s2"&gt;&amp;quot;→&amp;quot;&lt;/span&gt; rightarrow  &lt;span class="c"&gt;# RIGHTWARDS ARROW&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;bar&amp;gt; &amp;lt;v&amp;gt;                   : &lt;span class="s2"&gt;&amp;quot;↓&amp;quot;&lt;/span&gt; downarrow   &lt;span class="c"&gt;# DOWNWARDS ARROW&lt;/span&gt;
+&amp;lt;Multi_key&amp;gt; &amp;lt;less&amp;gt; &amp;lt;minus&amp;gt; &amp;lt;greater&amp;gt;    : &lt;span class="s2"&gt;&amp;quot;↔&amp;quot;&lt;/span&gt; U2194       &lt;span class="c"&gt;# LEFT RIGHT ARROW&lt;/span&gt;
+&lt;span class="c"&gt;# etc. etc.&lt;/span&gt;
+&lt;/pre&gt;&lt;/div&gt;
+
+
+&lt;p&gt;UPDATE:&lt;/p&gt;
+&lt;p&gt;I just upgraded to Ubuntu 11.04, and the compose keys got broken. Basically,
+somebody rearranged the keyboard preferences, and you can’t use them to set the
+compose keys anymore (among other things). The option is probably available
+graphically, but until I find it, you can revert to the old school way of doing
+it. Namely,&lt;/p&gt;
+&lt;p&gt;setxkbmap -option compose:ralt
+setxkbmap -option ctrl:nocaps
+The first of these will set the compose key to the Right Alt key, which is what
+I use. The second command sets the Caps Lock key to function just like another
+Ctrl key. Put the appropriate lines into your ~/.profile, and you’re up an
+running again!&lt;/p&gt;</summary><category term="unicode"></category><category term="ubuntu"></category><category term="uim"></category><category term="xcompose"></category><category term="linux"></category></entry></feed>

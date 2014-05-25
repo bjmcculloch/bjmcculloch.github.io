@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"><title>Organometallic Odyssey</title><link href="http://bjmcculloch.github.io/" rel="alternate"></link><link href="http://bjmcculloch.github.io/feeds/latex.atom.xml" rel="self"></link><id>http://bjmcculloch.github.io/</id><updated>2011-06-01T08:53:00-05:00</updated><entry><title>TAMU Thesis Class</title><link href="http://bjmcculloch.github.io/tamu-thesis-class.html" rel="alternate"></link><updated>2011-06-01T08:53:00-05:00</updated><author><name>Billy McCulloch</name></author><id>tag:bjmcculloch.github.io,2011-06-01:tamu-thesis-class.html</id><summary type="html">&lt;p&gt;TeX class for writing a Ph.D. thesis according to TAMU's Thesis Office specifications. I take advantage of both LuaLaTeX and the &lt;code&gt;memoir&lt;/code&gt; class. The code is incomplete and imperfect, here's a summary of known non-features... (this list has shrunk considerably since I started :)&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Parts of it are somewhat rigid, and would require customization for people other than me.&lt;ul&gt;
+&lt;li&gt;I assume the committee chair is a Dr.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The thesis office hasn't looked at any of the product documents. :)&lt;ul&gt;
+&lt;li&gt;I intend to show them my proposal, based on this template, to see if it cuts the mustard.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;Cool features include:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Margin notes which can be switched on/off (sort of a note to self feature)&lt;/li&gt;
+&lt;li&gt;Hyperref is supported throught, but not required.&lt;ul&gt;
+&lt;li&gt;Automagic links figures/tables/etc. references to the original location in the document.&lt;/li&gt;
+&lt;li&gt;The &lt;code&gt;\tref&lt;/code&gt; command, which automagically inserts both the kind of content as well as page information for references through judicous use of the varioref package's macros (e.g. &lt;code&gt;\tref{bigPicture}&lt;/code&gt; → "Figure 3.2 on the following page" or &lt;code&gt;\tref{incomeTaxBrackets}&lt;/code&gt; → "Table 2.8 on page 38")&lt;/li&gt;
+&lt;li&gt;The PDF page numbers actually correspond to the document page numbers (i.e. page 1 in the PDF menubar actually means page 1 of the main text, not the frontmatter stuff, which would appear as i, ii, iii, etc.)&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;The use of the memoir class means that you can prepare a document fully compatible with the thesis office's specifications, then easily modify the layout macros to prepare a beautifully typeset document you'd actually want to have bound to show your mother. (e.g. you'd switch the linespacing to singlespace, print on both sides of a sheet of paper, use reasonable margins and font sizes, modify headers and footers, change appearance of new chapters, include epigraphs, etc. Basically, it could look like a legitimate pulished work, instead of a typewriter-like throwback to 1970... with very little effort.)&lt;/li&gt;
+&lt;/ul&gt;</summary><category term="LaTeX"></category><category term="thesis"></category><category term="TAMU"></category><category term="memoir"></category></entry></feed>
